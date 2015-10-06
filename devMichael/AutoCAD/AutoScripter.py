@@ -169,6 +169,7 @@ class AutoScripter:
         
         if angle > 0:
             center = [start[0], start[1] + radius]
+<<<<<<< HEAD
             self.CPWAngBendHelperPositive(center, start, radius, width ,gap, angleRad, startAngleRad)
             x = start[0] + radius*math.sin(angleRad)
             y = start[1] + radius - radius*math.cos(angleRad)
@@ -194,10 +195,34 @@ class AutoScripter:
 
             self.script.write("ARC\nC\n")
             self.rotateAndWritePoint(startAngleRad, center[0], center[1],start)               
+=======
+        else:
+            center = [start[0], start[1] - radius]
+        self.CPWAngBendHelper(center, start, radius, width ,gap, angleRad, startAngleRad)
+        self.prevAngleRad = startAngleRad + angleRad
+        x = start[0] + radius*math.sin(angleRad)
+        y = start[1] + radius - radius*math.cos(angleRad)
+        self.prevEnd = self.rotatePoint(startAngleRad,x,y,start)
+
+    def CPWAngBendHelper(self, center, start, radius, width ,gap, angleRad ,startAngleRad):
+        """ This is pretty much just the ugly geometry part of the bent CPW"""
+        for i in range(0,2):
+            # i = 0 makes the right side etch pattern
+            # i = 1 makes the left side etch pattern
+            self.script.write("ARC\nC\n")
+            self.rotateAndWritePoint(startAngleRad, center[0], center[1],start)
+            if i == 0:
+                rw2 = radius + width/2
+                rw2g = radius + width/2 + gap
+            else:
+                rw2 = radius - width/2
+                rw2g = radius - width/2 - gap                
+>>>>>>> origin/master
             self.rotateAndWritePoint(startAngleRad, center[0], center[1] - rw2, start)
             arcEnd = [center[0] + rw2*math.sin(angleRad), \
                 center[1] - rw2*math.cos(angleRad)]
             self.rotateAndWritePoint(startAngleRad, arcEnd[0], arcEnd[1], start)
+<<<<<<< HEAD
 
             self.script.write("LINE\n")
             self.rotateAndWritePoint(startAngleRad, arcEnd[0], arcEnd[1],start)
@@ -206,17 +231,31 @@ class AutoScripter:
             # self.rotateAndWritePoint(startAngleRad, arcEnd[0] - sign*gap*math.sin(angleRad), \
             #     arcEnd[1] + gap*math.cos(angleRad),start)
 
+=======
+            self.script.write("LINE\n")
+            self.rotateAndWritePoint(startAngleRad, arcEnd[0], arcEnd[1],start)
+            if i == 0:
+                self.rotateAndWritePoint(startAngleRad, arcEnd[0] + gap*math.sin(angleRad), \
+                    arcEnd[1] - gap*math.cos(angleRad),start)
+            else:
+                self.rotateAndWritePoint(startAngleRad, arcEnd[0] - gap*math.sin(angleRad), \
+                    arcEnd[1] + gap*math.cos(angleRad),start)
+>>>>>>> origin/master
             self.script.write("\nARC\nC\n")
             self.rotateAndWritePoint(startAngleRad, center[0], center[1],start)
             self.rotateAndWritePoint(startAngleRad, center[0], center[1] - rw2g, start)
             arcEnd = [center[0] + rw2g*math.sin(angleRad), \
                 center[1] - rw2g*math.cos(angleRad)]
             self.rotateAndWritePoint(startAngleRad, arcEnd[0], arcEnd[1], start)
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
             self.script.write("LINE\n")
             self.rotateAndWritePoint(startAngleRad, center[0], center[1] - rw2, start)
             self.rotateAndWritePoint(startAngleRad, center[0], center[1] - rw2g, start)
             self.script.write("\n")
+<<<<<<< HEAD
 
     def CPWAngBendHelperNegative(self, center, start, radius, width ,gap, angleRad ,startAngleRad):
         """ This is pretty much just the ugly geometry part of the bent CPW with angleRad < 0"""
@@ -272,3 +311,17 @@ for i in range(0,3):
 for i in range(0,3):
     a.addCPWAngBend(width, gap, 4*(width + gap), 90, a.prevEnd, a.prevAngleRad)
 a.addCPWStraightLenAng(width, gap, 200, a.prevEnd, a.prevAngleRad)
+=======
+
+# Make a tilted sprial with CPWs (See here: http://i.imgur.com/kI90W8a.png)
+a = AutoScripter('test.scr')
+width = 5
+gap = 5
+a.addCPWStraightLenAng(width, gap, length = 50, start = [300,100], math.pi/4)
+a.addCPWAngBend(width, gap, width + gap, 180, a.prevEnd, a.prevAngleRad)
+for i in range(2,10):
+    a.addCPWStraightLenAng(width, gap, 100, a.prevEnd, a.prevAngleRad)
+    a.addCPWAngBend(width, gap, 1.5*(width + gap)*i, 180, a.prevEnd, a.prevAngleRad)
+
+    
+>>>>>>> origin/master
