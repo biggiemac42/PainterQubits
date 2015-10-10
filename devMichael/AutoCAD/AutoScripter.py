@@ -8,12 +8,9 @@ which is then run on AutoCAD.
 *** NOTE: When exporting dxf file in AutoCAD, use the 2000 DXF version format.
 """
 from math import *
-<<<<<<< HEAD
 import subprocess
 from os import getcwd
 import shlex
-=======
->>>>>>> origin/master
 
 class newScript:
     def __init__(self,filename):
@@ -342,55 +339,44 @@ class newScript:
         """  Begin a trace with a lunach pad """
         padGap = (totalWidth - padWidth)/2
         self.addCPWRectGap(padWidth, padGap, padGap, start, startAngleRad)
-<<<<<<< HEAD
         self.addCPWStraightLenAng(padWidth, padGap, padLength, self.prevEnd, self.prevAngleRad)
         self.addCPWRampLenAng(padWidth, padGap, traceWidth, traceGap, rampLength, self.prevEnd, self.prevAngleRad)
-=======
-        self.addCPWStraightLenAng(padWidth, padGap, padLength, a.prevEnd, a.prevAngleRad)
-        self.addCPWRampLenAng(padWidth, padGap, traceWidth, traceGap, rampLength, a.prevEnd, a.prevAngleRad)
->>>>>>> origin/master
 
     def launchPadEnd(self, padWidth, totalWidth, traceWidth, traceGap, padLength, rampLength, start, startAngleRad):
         """ End a trace with a lunach pad """
         padGap = (totalWidth - padWidth)/2
-<<<<<<< HEAD
         self.addCPWRampLenAng(traceWidth, traceGap, padWidth, padGap, rampLength, self.prevEnd, self.prevAngleRad)
         self.addCPWStraightLenAng(padWidth, padGap, padLength, self.prevEnd, self.prevAngleRad)
         self.addCPWRectGap(padWidth, padGap, padGap, self.prevEnd, self.prevAngleRad)
-=======
-        self.addCPWRampLenAng(traceWidth, traceGap, padWidth, padGap, rampLength, a.prevEnd, a.prevAngleRad)
-        self.addCPWStraightLenAng(padWidth, padGap, padLength, a.prevEnd, a.prevAngleRad)
-        self.addCPWRectGap(padWidth, padGap, padGap, a.prevEnd, a.prevAngleRad)
 
 # Make a complex CPW trace (See here: http://i.imgur.com/mGCyDBt.png)
-a = AutoScripter('test.scr')
-width = 4
-gap = 4
-width2 = 10
-gap2 = 10
-sign = 1
-a.addLayer("Frame", [250,50,50])
-a.addRect(base = [0,0], xlen = 10000, ylen = 10000)
-a.addLayer("CPW", [50,250,50])
-a.launchPadBegin(150, 300, width, gap, 200, 200, [3000,200], startAngleRad = pi/2)
-a.addCPWAngBend(width, gap, 100, -45, a.prevEnd, a.prevAngleRad)
-a.addCPWStraightLenAng(width, gap, length = 200, start = a.prevEnd, startAngleRad = a.prevAngleRad)
-a.addCPWAngBend(width, gap, 100, 45, a.prevEnd, a.prevAngleRad)
-for i in range(2,10):
-    sign = -sign
-    a.addCPWStraightLenAng(width, gap, 100, a.prevEnd, a.prevAngleRad)
-    a.addCPWAngBend(width, gap, 2*(width + gap)*i, -180*sign, a.prevEnd, a.prevAngleRad)
-for i in range(0,3):
-    a.addCPWStraightLenAng(width, gap, 100, a.prevEnd, a.prevAngleRad)
-    a.addCPWAngBend(width, gap, 2*(width + gap), -90, a.prevEnd, a.prevAngleRad)
-for i in range(0,3):
-    a.addCPWAngBend(width, gap, 4*(width + gap), 90, a.prevEnd, a.prevAngleRad)
-a.addCPWStraightLenAng(width, gap, 500, a.prevEnd, a.prevAngleRad)
-a.CPWMeander(width, gap, 2500, 25, 150, -pi/3, a.prevEnd, a.prevAngleRad)
-a.addCPWRampLenAng(width, gap, width2, gap2, 50, a.prevEnd, a.prevAngleRad)
-a.CPWMeander(width2, gap2, 2500, 25, 150, pi/2, a.prevEnd, a.prevAngleRad)
-a.addCPWRampLenAng(width2, gap2, width/2, gap/2, 100, a.prevEnd, a.prevAngleRad)
-a.addCPWStraightLenAng(width/2, gap/2, 200, a.prevEnd, a.prevAngleRad)
-a.addCPWAngBend(width/2, gap/2, 100, 30, a.prevEnd, a.prevAngleRad)
-a.launchPadEnd(150, 300, width/2, gap/2, 200, 200, a.prevEnd, a.prevAngleRad)
->>>>>>> origin/master
+# a = AutoScripter('test.scr')
+# width = 4
+# gap = 4
+# width2 = 10
+# gap2 = 10
+# sign = 1
+# a.addLayer("Frame", [250,50,50])
+# a.addRect(base = [0,0], xlen = 10000, ylen = 10000)
+# a.addLayer("CPW", [50,250,50])
+# a.launchPadBegin(150, 300, width, gap, 200, 200, [3000,200], startAngleRad = pi/2)
+# a.addCPWAngBend(width, gap, 100, -45, a.prevEnd, a.prevAngleRad)
+# a.addCPWStraightLenAng(width, gap, length = 200, start = a.prevEnd, startAngleRad = a.prevAngleRad)
+# a.addCPWAngBend(width, gap, 100, 45, a.prevEnd, a.prevAngleRad)
+# for i in range(2,10):
+#     sign = -sign
+#     a.addCPWStraightLenAng(width, gap, 100, a.prevEnd, a.prevAngleRad)
+#     a.addCPWAngBend(width, gap, 2*(width + gap)*i, -180*sign, a.prevEnd, a.prevAngleRad)
+# for i in range(0,3):
+#     a.addCPWStraightLenAng(width, gap, 100, a.prevEnd, a.prevAngleRad)
+#     a.addCPWAngBend(width, gap, 2*(width + gap), -90, a.prevEnd, a.prevAngleRad)
+# for i in range(0,3):
+#     a.addCPWAngBend(width, gap, 4*(width + gap), 90, a.prevEnd, a.prevAngleRad)
+# a.addCPWStraightLenAng(width, gap, 500, a.prevEnd, a.prevAngleRad)
+# a.CPWMeander(width, gap, 2500, 25, 150, -pi/3, a.prevEnd, a.prevAngleRad)
+# a.addCPWRampLenAng(width, gap, width2, gap2, 50, a.prevEnd, a.prevAngleRad)
+# a.CPWMeander(width2, gap2, 2500, 25, 150, pi/2, a.prevEnd, a.prevAngleRad)
+# a.addCPWRampLenAng(width2, gap2, width/2, gap/2, 100, a.prevEnd, a.prevAngleRad)
+# a.addCPWStraightLenAng(width/2, gap/2, 200, a.prevEnd, a.prevAngleRad)
+# a.addCPWAngBend(width/2, gap/2, 100, 30, a.prevEnd, a.prevAngleRad)
+# a.launchPadEnd(150, 300, width/2, gap/2, 200, 200, a.prevEnd, a.prevAngleRad)
